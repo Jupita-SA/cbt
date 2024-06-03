@@ -1,0 +1,38 @@
+<script>
+      feather.replace();
+
+      // Function to update the collapse icon
+      function updateIcon(target, icon) {
+        var $icon = target.find(".collapse-icon");
+        $icon.attr("data-feather", icon);
+        feather.replace();
+      }
+
+      // Initialize collapse icons and display
+      $('.nav-link[data-toggle="collapse"]').each(function () {
+        var $this = $(this);
+        var $target = $($this.data("target"));
+        if ($target.hasClass("show")) {
+          updateIcon($this, "chevron-up");
+          $target.removeClass("d-none").addClass("d-flex");
+        } else {
+          updateIcon($this, "chevron-down");
+        }
+      });
+
+      // Toggle collapse and update icon
+      $('.nav-link[data-toggle="collapse"]').on("click", function () {
+        var $this = $(this);
+        var $target = $($this.data("target"));
+
+        $target.on("show.bs.collapse", function () {
+          $target.removeClass("d-none").addClass("d-flex");
+          updateIcon($this, "chevron-up");
+        });
+
+        $target.on("hide.bs.collapse", function () {
+          $target.removeClass("d-flex").addClass("d-none");
+          updateIcon($this, "chevron-down");
+        });
+      });
+    </script>
